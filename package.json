@@ -1,0 +1,23 @@
+{
+  "name": "chatwepapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "deploy": "npm ci",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "author": "RenitoZix",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "http": "^0.0.1-security",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.20",
+    "path": "^0.12.7",
+    "socket.io": "^4.5.4"
+  }
+}

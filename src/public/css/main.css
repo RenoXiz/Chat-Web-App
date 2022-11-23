@@ -1,0 +1,22 @@
+body{
+    background-color: #4a1595;
+}
+
+.title{
+    font-weight: bold;
+    color: white;
+
+    margin-top: 20px;
+}
+
+#chat{
+    min-height: 60vh;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+#users{
+    min-height: 60vh;
+    max-height: 60vh;
+    overflow-y: auto;
+}
