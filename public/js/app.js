@@ -70,9 +70,9 @@ $(document).ready(function() {
         registerForm.on('submit', (e) => {
             e.preventDefault();
 
-            const username = registerForm.find('#username').val();
-            const email = registerForm.find('#email').val();
-            const password = registerForm.find('#password').val();
+            const username = registerForm.find('#registerUsername').val();
+            const email = registerForm.find('#registerEmail').val();
+            const password = registerForm.find('#registerPassword').val();
 
             console.log("Usuario registrado:")
             console.log("Username: " + username);
@@ -88,8 +88,8 @@ $(document).ready(function() {
         loginForm.on('submit', (e) => {
             e.preventDefault();
 
-            const email = loginForm.find('#email').val();
-            const password = loginForm.find('#password').val();
+            const email = loginForm.find('#loginEmail').val();
+            const password = loginForm.find('#loginPassword').val();
 
             socket.emit('user:login', {
                 email: email,
