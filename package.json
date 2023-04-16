@@ -1,7 +1,6 @@
 {
   "name": "chatwebapp",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -23,5 +22,14 @@
     "nodemon": "^2.0.22",
     "pg": "^8.10.0",
     "socket.io": "^4.6.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RenoXiz/Chat-Web-App.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RenoXiz/Chat-Web-App/issues"
+  },
+  "homepage": "https://github.com/RenoXiz/Chat-Web-App#readme",
+  "description": ""
 }
