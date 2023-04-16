@@ -9,11 +9,17 @@ const createUser = async (username, email, password) => {
     try {
         const res = await client.query(query, values);
 
-        console.log(res.row[0]);
-        return res.row[0];
+        if (res.rowCount > 0) {
+            console.log(res.rows[0]);
+            return true;
+        }
+        else {
+            return false;
+        }
 
     } catch (error) {
         console.log('Error: ' + error);
+        return false;
     }
 }
 
@@ -26,11 +32,17 @@ const getUser = async (email) => {
     try {
         const res = await client.query(query, values);
 
-        console.log(res.row[0]);
-        return res.row[0];
+        if (res.rowCount > 0) {
+            console.log(res.rows[0]);
+            return true;
+        }
+        else {
+            return false;
+        }
 
     } catch (error) {
         console.log('Error: ' + error);
+        return false;
     }
 }
 

@@ -9,7 +9,7 @@ const socket = (io) => {
             
             const result = userController.registerUser(username, email, password);
 
-            if (result) {
+            if (result == true) {
                 socket.emit('user:register', {result: true});
                 console.log('User registered: ' + username + ' ' + email);
             }
@@ -23,7 +23,7 @@ const socket = (io) => {
 
             const result = userController.loginUser(email, password);
 
-            if (result) {
+            if (result == true) {
                 socket.emit('user:login', {result: true});
                 console.log('User logged in: ' + email);
                 socket.username = email;

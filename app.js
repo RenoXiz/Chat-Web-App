@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
 const http = require('http');
-const https = require('https');
 const socketio = require('socket.io');
 const router = require('./src/router.js');
 require('dotenv').config();

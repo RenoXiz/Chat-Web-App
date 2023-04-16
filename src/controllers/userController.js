@@ -1,14 +1,19 @@
 const userModel = require('../models/userModel.js');
 
 const registerUser = (name, email, password) => {
-    const tempUser = userModel.getUser(email);
+    const res = userModel.getUser(email);
 
-    if (tempUser) {
+    if (res == true) {
         return false;
     }
     else {
-        userModel.createUser(name, email, password);
-        return true;
+        const res = userModel.createUser(name, email, password);
+        if (res == true) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
 
