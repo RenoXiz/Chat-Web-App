@@ -7,7 +7,9 @@ const createUser = async (username, email, password) => {
     const values = [username, email, password];
 
     try {
-        const res = await client.query(query, values);
+        await client.query(query, values);
+
+        const res = await client.query('SELECT * FROM users WHERE email = $1::text', [email]);
 
         if (res.rowCount > 0) {
             console.log(res.rows[0]);
