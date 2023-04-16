@@ -1,17 +1,17 @@
 const userModel = require('../models/userModel.js');
 
-const RegisterUser = (name, email, password) => {
-    const tempUser = userModel.GetUser(email);
+const registerUser = (name, email, password) => {
+    const tempUser = userModel.getUser(email);
 
     if (tempUser) {
         return false;
     }
     else {
-        userModel.CreateUser(name, email, password);
+        userModel.createUser(name, email, password);
         return true;
     }
 }
 
 module.exports = {
-    RegisterUser
+    registerUser
 }

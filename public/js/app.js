@@ -59,7 +59,10 @@ $(document).ready(function() {
     });
 
     if (username && email) {
-        
+        socket.emit('user:login', {
+            username: username,
+            email: email
+        });
     }
     else {
         openLoginModal();
@@ -67,33 +70,34 @@ $(document).ready(function() {
         registerForm.on('submit', (e) => {
             e.preventDefault();
 
-            const name = $('#registerName').val();
-            const email = $('#registerEmail').val();
-            const password = $('#registerPassword').val();
+            const username = registerForm.find('#username').val();
+            const email = registerForm.find('#email').val();
+            const password = registerForm.find('#password').val();
 
-            socket.emit('user:register', { name, email, password });
+            socket.emit('user:register', {
+                username: username,
+                email: email,
+                password: password
+            });
         });
 
         loginForm.on('submit', (e) => {
             e.preventDefault();
 
-            const email = $('#loginEmail').val();
-            const password = $('#loginPassword').val();
+            const email = loginForm.find('#email').val();
+            const password = loginForm.find('#password').val();
 
-            socket.emit('user:login', { email, password });
+            socket.emit('user:login', {
+                email: email,
+                password: password
+            });
         });
 
         socket.on('user:register', (data) => {
-            if (data.result) {
+            if (data.success) {
                 closeRegisterModal();
                 openLoginModal();
             }
-            else {
-                console.log('Error', data);
-                alert('Error');
-            }
         });
-
-        
     }
 });

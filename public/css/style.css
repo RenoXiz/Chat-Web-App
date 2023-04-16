@@ -1,16 +1,22 @@
 body{
-    color: #FFFFFF;
+    color : #ffffff;
 }
 
-.channels{
-    background-color: #141414;
+.row{
+    margin: 0;
+}
 
+.form-floating label{
+    color: #000000;
+}
+
+.channels-container{
+    background-color: #120F13;
     min-height: 100vh;
 }
 
-.chat{
-    background-color: #202020;
-
+.chat-container{
+    background-color: #252329;
     min-height: 100vh;
 }
 
@@ -32,11 +38,11 @@ body{
 .modal{
     width: 30%;
     height: 40%;
+    border-radius: 20px;
     background-color: #202020;
     text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
     position: relative;
     transition: transform 1s;
     transform: translateY(0%);

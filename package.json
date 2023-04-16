@@ -1,28 +1,22 @@
 {
-  "name": "chatwepapp",
+  "name": "chatwebapp",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
-  "type": "commonjs",
   "scripts": {
-    "deploy": "npm ci",
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "start": "node app.js"
   },
   "author": "RenitoZix",
   "license": "ISC",
   "dependencies": {
-    "bootstrap": "^5.2.3",
     "dotenv": "^16.0.3",
-    "ejs": "^3.1.8",
+    "ejs": "^3.1.9",
     "express": "^4.18.2",
     "http": "^0.0.1-security",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.20",
-    "path": "^0.12.7",
+    "nodemon": "^2.0.22",
     "pg": "^8.10.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "socket.io": "^4.6.1"
   }
 }

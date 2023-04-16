@@ -1,14 +1,13 @@
-const userController = require('./controllers/userController');
+const userController = require('./controllers/userController.js');
 
-const sockets = (io) => {
-    
+const socket = (io) => {
     io.on('connection', (socket) => {
         console.log('Client connected: ' + socket.id);
 
         socket.on('user:register', (data) => {
             const {username, email, password} = data;
             
-            const result = userController.RegisterUser(username, email, password);
+            const result = userController.registerUser(username, email, password);
 
             if (result) {
                 socket.emit('user:register', {result: true});
@@ -22,7 +21,7 @@ const sockets = (io) => {
         socket.on('user:login', (data) => {
             const {email, password} = data;
 
-            const result = userController.LoginUser(email, password);
+            const result = userController.loginUser(email, password);
 
             if (result) {
                 socket.emit('user:login', {result: true});
@@ -38,7 +37,6 @@ const sockets = (io) => {
             console.log('Client disconnected: ' + socket.id);
         });
     });
-
 }
 
-module.exports = sockets;
+module.exports = socket;
