@@ -74,6 +74,10 @@ $(document).ready(function() {
             const email = registerForm.find('#email').val();
             const password = registerForm.find('#password').val();
 
+            console.log("Usuario registrado:")
+            console.log("Username: " + username);
+            console.log("Email: " + email);
+
             socket.emit('user:register', {
                 username: username,
                 email: email,
@@ -94,7 +98,7 @@ $(document).ready(function() {
         });
 
         socket.on('user:register', (data) => {
-            if (data.success) {
+            if (data) {
                 closeRegisterModal();
                 openLoginModal();
             }
