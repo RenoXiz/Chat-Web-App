@@ -1,13 +1,13 @@
 const userModel = require('../models/userModel.js');
 
-const registerUser = (name, email, password) => {
-    const res = userModel.getUser(email);
+const registerUser = async (name, email, password) => {
+    const res = await userModel.getUser(email);
 
     if (res == true) {
         return false;
     }
     else {
-        const res = userModel.createUser(name, email, password);
+        const res = await userModel.createUser(name, email, password);
         if (res == true) {
             return true;
         }
