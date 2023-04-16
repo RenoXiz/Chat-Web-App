@@ -4,8 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "deploy": "npm ci",
+    "dev": "nodemon app.js"
   },
   "author": "RenitoZix",
   "license": "ISC",
