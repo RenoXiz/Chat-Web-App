@@ -14,9 +14,6 @@ $(document).ready(function() {
 
     const socket = io();
 
-    var username = localStorage.getItem("username");
-    var email = localStorage.getItem("email");
-
     const openRegisterModal = () => {
         registerModalContainer.css('opacity', 1);
         registerModalContainer.css('visibility', 'visible');
@@ -58,50 +55,75 @@ $(document).ready(function() {
         openLoginModal();
     });
 
-    if (username && email) {
+    if (localStorage.getItem("email") != null) {
+        const email = localStorage.getItem("email");
+        const password = localStorage.getItem("password");
+
         socket.emit('user:login', {
-            username: username,
-            email: email
+            email: email,
+            password: password
         });
     }
     else {
         openLoginModal();
-
-        registerForm.on('submit', (e) => {
-            e.preventDefault();
-
-            const username = registerForm.find('#registerUsername').val();
-            const email = registerForm.find('#registerEmail').val();
-            const password = registerForm.find('#registerPassword').val();
-
-            console.log("Usuario registrado:")
-            console.log("Username: " + username);
-            console.log("Email: " + email);
-
-            socket.emit('user:register', {
-                username: username,
-                email: email,
-                password: password
-            });
-        });
-
-        loginForm.on('submit', (e) => {
-            e.preventDefault();
-
-            const email = loginForm.find('#loginEmail').val();
-            const password = loginForm.find('#loginPassword').val();
-
-            socket.emit('user:login', {
-                email: email,
-                password: password
-            });
-        });
-
-        socket.on('user:register', (data) => {
-            if (data) {
-                closeRegisterModal();
-                openLoginModal();
-            }
-        });
     }
+
+    registerForm.on('submit', (e) => {
+        e.preventDefault();
+
+        const username = registerForm.find('#registerUsername').val();
+        const email = registerForm.find('#registerEmail').val();
+        const password = registerForm.find('#registerPassword').val();
+
+        socket.emit('user:register', {
+            username: username,
+            email: email,
+            password: password
+        });
+    });
+
+    loginForm.on('submit', (e) => {
+        e.preventDefault();
+
+        const email = loginForm.find('#loginEmail').val();
+        const password = loginForm.find('#loginPassword').val();
+
+        socket.emit('user:login', {
+            email: email,
+            password: password
+        });
+    });
+
+    socket.on('user:register', (data) => {
+        if (data.result == true) {
+            closeRegisterModal();
+
+            const username = data.user.username;
+            const email = data.user.email;
+
+            localStorage.setItem("username", username);
+            localStorage.setItem("email", email);
+            localStorage.setItem("password", password);
+        }
+        else {
+            openLoginModal();
+        }
+    });
+
+    socket.on('user:login', (data) => {
+        if (data.result == true) {
+            closeLoginModal();
+
+            const username = data.user.username;
+            const email = data.user.email;
+            const password = data.user.password;
+
+            localStorage.setItem("username", username);
+            localStorage.setItem("email", email);
+            localStorage.setItem("password", password);
+        }
+        else {
+            openLoginModal();
+        }
+    });
 });
