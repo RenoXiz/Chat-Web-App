@@ -4,29 +4,34 @@ const socket = (io) => {
     io.on('connection', (socket) => {
         console.log('Client connected: ' + socket.id);
 
-        socket.on('user:register', (data) => {
+        socket.on('user:register', async (data) => {
             const {username, email, password} = data;
             
-            const result = userController.registerUser(username, email, password);
+            const result = await userController.registerUser(username, email, password);
 
             if (result == true) {
-                socket.emit('user:register', {result: true});
-                console.log('User registered: ' + username + ' ' + email);
+                const user = await userController.getUser(email);
+            
+                socket.emit('user:register', {user: user, result: true});
+                console.log('User registered: ' + user.username);
+                socket.username = user.username;
             }
             else {
                 socket.emit('user:register', {result: false});
             }
         });
 
-        socket.on('user:login', (data) => {
+        socket.on('user:login', async (data) => {
             const {email, password} = data;
 
-            const result = userController.loginUser(email, password);
+            const result = await userController.loginUser(email, password);
 
             if (result == true) {
-                socket.emit('user:login', {result: true});
-                console.log('User logged in: ' + email);
-                socket.username = email;
+                const user = await userController.getUser(email);
+                
+                socket.emit('user:login', {user: user, result: true});
+                console.log('User logged in: ' + user.username);
+                socket.username = user.username;
             }
             else {
                 socket.emit('user:login', {result: false});

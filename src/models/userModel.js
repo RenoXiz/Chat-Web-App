@@ -1,23 +1,15 @@
-const client = require('../database.js');
+const database = require('../database.js');
 
 const createUser = async (username, email, password) => {
-    await client.connect();
-
-    const query = ('INSERT INTO users (name, email, password) VALUES ($1::text, $2::text, $3::text)');
+    const query = ('INSERT INTO users (username, email, password) VALUES ($1, $2, $3)');
     const values = [username, email, password];
 
     try {
-        await client.query(query, values);
+        await database.query(query, values);
 
-        const res = await client.query('SELECT * FROM users WHERE email = $1::text', [email]);
+        const res = await database.query('SELECT * FROM users WHERE email = $1', [email]);
 
-        if (res.rowCount > 0) {
-            console.log(res.rows[0]);
-            return true;
-        }
-        else {
-            return false;
-        }
+        return res;
 
     } catch (error) {
         console.log('Error: ' + error);
@@ -26,21 +18,13 @@ const createUser = async (username, email, password) => {
 }
 
 const getUser = async (email) => {
-    await client.connect();
-
     const query = ('SELECT * FROM users WHERE email = $1::text');
     const values = [email];
 
     try {
-        const res = await client.query(query, values);
+        const res = await database.query(query, values);
 
-        if (res.rowCount > 0) {
-            console.log(res.rows[0]);
-            return true;
-        }
-        else {
-            return false;
-        }
+        return res;
 
     } catch (error) {
         console.log('Error: ' + error);
