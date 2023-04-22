@@ -66,3 +66,23 @@ body{
 .modal-close{
     transform: translateY(-200%);
 }
+
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+}
+
+.message-text{
+    height: 44px;
+}
+
+.message-btn{
+    height: 44px;
+}
+
+.chat-historial-container{
+    min-height: 70%;
+}
