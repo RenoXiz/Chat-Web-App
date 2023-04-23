@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+    //Variables
+
     const registerModalContainer = $('#registerModalContainer');
     const loginModalContainer = $('#loginModalContainer');
 
@@ -12,7 +14,15 @@ $(document).ready(function() {
     const registerForm = $('#registerModalForm');
     const loginForm = $('#loginModalForm');
 
+    //Socket
+
     const socket = io();
+
+    var username = null;
+    var email = null;
+    var token = null;
+
+    //Funciones
 
     const openRegisterModal = () => {
         registerModalContainer.css('opacity', 1);
@@ -43,6 +53,8 @@ $(document).ready(function() {
         closeLoginModal();
     }
 
+    //Botones
+
     registerModalBtn.on('click', (e) => {
         e.preventDefault();
         closeLoginModal();
@@ -55,25 +67,14 @@ $(document).ready(function() {
         openLoginModal();
     });
 
-    if (localStorage.getItem("email") != null) {
-        const email = localStorage.getItem("email");
-        const password = localStorage.getItem("password");
-
-        socket.emit('user:login', {
-            email: email,
-            password: password
-        });
-    }
-    else {
-        openLoginModal();
-    }
+    //Formularios
 
     registerForm.on('submit', (e) => {
         e.preventDefault();
 
-        const username = registerForm.find('#registerUsername').val();
-        const email = registerForm.find('#registerEmail').val();
-        const password = registerForm.find('#registerPassword').val();
+        username = registerForm.find('#registerUsername').val();
+        email = registerForm.find('#registerEmail').val();
+        password = registerForm.find('#registerPassword').val();
 
         socket.emit('user:register', {
             username: username,
@@ -85,25 +86,44 @@ $(document).ready(function() {
     loginForm.on('submit', (e) => {
         e.preventDefault();
 
-        const email = loginForm.find('#loginEmail').val();
-        const password = loginForm.find('#loginPassword').val();
+        email = loginForm.find('#loginEmail').val();
+        password = loginForm.find('#loginPassword').val();
 
         socket.emit('user:login', {
             email: email,
-            password: password
+            password: password,
+            token: null
         });
     });
+
+    //Comprovacion de usuario
+
+    token = sessionStorage.getItem("token");
+
+    if (token != null) {
+
+        socket.emit('user:login', {
+            email: null,
+            password: null,
+            token: token
+        });
+    }
+    else {
+        openLoginModal();
+    }
+
+    //Socket events
 
     socket.on('user:register', (data) => {
         if (data.result == true) {
             closeRegisterModal();
 
-            const username = data.user.username;
-            const email = data.user.email;
+            token = data.user.token;
 
-            localStorage.setItem("username", username);
-            localStorage.setItem("email", email);
-            localStorage.setItem("password", password);
+            sessionStorage.setItem("token", token);
+
+            username = data.user.username;
+            email = data.user.email;
         }
         else {
             openLoginModal();
@@ -114,13 +134,12 @@ $(document).ready(function() {
         if (data.result == true) {
             closeLoginModal();
 
-            const username = data.user.username;
-            const email = data.user.email;
-            const password = data.user.password;
+            token = data.token;
 
-            localStorage.setItem("username", username);
-            localStorage.setItem("email", email);
-            localStorage.setItem("password", password);
+            sessionStorage.setItem("token", token);
+
+            username = data.user.username;
+            email = data.user.email;
         }
         else {
             openLoginModal();
