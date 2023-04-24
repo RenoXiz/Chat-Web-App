@@ -14,6 +14,15 @@ $(document).ready(function() {
     const registerForm = $('#registerModalForm');
     const loginForm = $('#loginModalForm');
 
+    const searchChannelForm = $('#searchChannelForm');
+
+    const newChannelModalContainer = $('#newChannelModalContainer');
+    const newChannelModal = $('#newChannelModal');
+    const newChannelModalBtn = $('#newChannelModalBtn');
+    const newChannelForm = $('#newChannelModalForm');
+
+    const channelListContainer = $('#channelListContainer');
+
     //Socket
 
     const socket = io();
@@ -48,9 +57,27 @@ $(document).ready(function() {
         loginModal.toggleClass('modal-close');
     }
 
+    const openNewChannelModal = () => {
+        newChannelModalContainer.css('opacity', 1);
+        newChannelModalContainer.css('visibility', 'visible');
+        newChannelModal.toggleClass('modal-close');
+    }
+
+    const closeNewChannelModal = () => {
+        newChannelModalContainer.css('opacity', 0);
+        newChannelModalContainer.css('visibility', 'hidden');
+        newChannelModal.toggleClass('modal-close');
+    }
+
     const closeModals = () => {
         closeRegisterModal();
         closeLoginModal();
+    }
+
+    const getAllChannels = () => {
+        socket.emit('channel:get', {
+            token: token
+        });
     }
 
     //Botones
@@ -65,6 +92,11 @@ $(document).ready(function() {
         e.preventDefault();
         closeRegisterModal();
         openLoginModal();
+    });
+
+    newChannelModalBtn.on('click', (e) => {
+        e.preventDefault();
+        openNewChannelModal();
     });
 
     //Formularios
@@ -96,6 +128,30 @@ $(document).ready(function() {
         });
     });
 
+    searchChannelForm.on('submit', (e) => {
+        e.preventDefault();
+
+        const channelName = searchChannelForm.find('#searchChannelName').val();
+
+        socket.emit('channel:search', {
+            name: channelName,
+            token: token
+        });
+    });
+
+    newChannelForm.on('submit', (e) => {
+        e.preventDefault();
+
+        const channelName = newChannelForm.find('#channelName').val();
+        const channelDescription = newChannelForm.find('#channelDescription').val();
+
+        socket.emit('channel:create', {
+            name: channelName,
+            description: channelDescription,
+            token: token
+        });
+    });
+
     //Comprovacion de usuario
 
     token = sessionStorage.getItem("token");
@@ -124,6 +180,8 @@ $(document).ready(function() {
 
             username = data.user.username;
             email = data.user.email;
+
+            getAllChannels();
         }
         else {
             openLoginModal();
@@ -140,9 +198,47 @@ $(document).ready(function() {
 
             username = data.user.username;
             email = data.user.email;
+
+            getAllChannels();
         }
         else {
             openLoginModal();
+        }
+    });
+
+    socket.on('channel:create', (data) => {
+        if (data.result == true) {
+            closeNewChannelModal();
+        }
+        else {
+            openNewChannelModal();
+        }
+    });
+
+    socket.on('channel:get', (data) => {
+        if (data.result == true) {
+            console.log(data);
+
+            var channels = data.channels;
+
+            channels.forEach(channel => {
+                const channelElement = $(`
+                <div class="channel-contianer row m-4" id="${channel.id}">
+                    <button class="channel-btn">
+                        <div class="channel-image col-1">
+                            <img src="${channel.image}" alt="">
+                        </div>
+                        <div class="channel-name col-11">
+                            <h3>${channel.name}</h3>
+                        </div>
+                    </button>
+                </div>`);
+
+                channelListContainer.append(channelElement);
+            });
+        }
+        else {
+            console.log(data);
         }
     });
 });

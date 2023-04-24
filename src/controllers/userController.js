@@ -56,8 +56,8 @@ const loginUserByToken = async (token) => {
     }
 }
 
-const logoutUser = async (id) => {
-    const res = await userModel.getUserById(id);
+const logoutUser = async (token) => {
+    const res = await userModel.getUserByToken(token);
 
     if (res.rowCount > 0) {
         const user = res.rows[0];

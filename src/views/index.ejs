@@ -20,15 +20,32 @@
         <div class="row">
             <div class="channels-container col-3">
                 <div class="title-container">
-                    <h1 class="title-text text-start px-4 py-2" id="channels-title">Chat Online</h1>
+                    <h1 class="title-text text-start px-4" id="channels-title">Canales</h1>
+                    <button class="btn-channel-add mx-4" id="newChannelModalBtn">
+                        <span class="material-symbols-outlined align-middle" style="color: #ffffff;">
+                            add
+                        </span>
+                    </button>
                 </div>
-                <div class="channels-list-container d-flex">
-
+                <div class="channels-search-container">
+                    <form action="" class="m-4" id="searchChannelForm">
+                        <div class="input-group">
+                            <button class="channels-search-btn btn btn-light" type="submit">
+                                <span class="material-symbols-outlined align-middle">
+                                    search
+                                </span>
+                            </button>
+                            <input type="text" class="channels-search-input form-control" id="searchChannelInput" placeholder="Buscar Canal">
+                        </div>
+                    </form>
+                </div>
+                <div class="channels-list-container d-flex" id="channelListContainer">
+                    
                 </div>
             </div>
             <div class="chat-container col-9">
                 <div class="title-container">
-                    <h2 class="title-text text-start px-4 py-2" id="chats-title">Chat</h2>
+                    <h2 class="title-text text-start align-middle px-4" id="chats-title">Chat</h2>
                 </div>
                 <div class="chat-historial-container d-flex flex-column-reverse m-4">
                     <div class="chat-message-container row align-items-end">
@@ -112,6 +129,25 @@
                 <div class="btn-group w-100 mt-4">
                     <button class="btn btn-light w-50 me-1" type="submit">Iniciar Sesión</button>
                     <button class="btn btn-light w-50 ms-1" id="registerModalBtn">Registrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-container" id="newChannelModalContainer">
+        <div class="modal modal-close" id="newChannelModal">
+            <h2 class="text-center mt-5">Nuevo Canal</h2>
+            <form action="" class="mx-5 mt-3" id="newChannelModalForm">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" name="channelName" id="channelName" required>
+                    <label for="channelName">Nombre</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <textarea class="form-control h-25" name="channelDescription" id="channelDescription" cols="30" rows="10"></textarea>
+                    <label for="channelDescription">Descripción</label>
+                </div>
+                <div class="btn-group w-100 mt-4">
+                    <button class="btn btn-light w-50" type="submit">Crear Canal</button>
                 </div>
             </form>
         </div>

@@ -1,3 +1,13 @@
+@font-face {
+    font-family: NotoSans-Bold;
+    src: url('/fonts/NotoSans-Bold.ttf');
+}
+
+@font-face {
+    font-family: NotoSans-Medium;
+    src: url('/fonts/NotoSans-Medium.ttf');
+}
+
 body{
     color : #ffffff;
 }
@@ -26,11 +36,27 @@ body{
 }
 
 .title-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
     box-shadow: 0px 7px 10px 0px rgba(0,0,0,0.75);
 }
 
 .title-text{
-    font-size: 2.2rem;
+    font-size: 18px;
+    font-family: NotoSans-Bold;
+
+    margin-bottom: 0px;
+}
+
+.btn-channel-add{
+    width: 32px;
+    height: 32px;
+    padding: 0px;
+
+    background: #252329;
+    border-radius: 8px;
 }
 
 .modal-container{
@@ -49,8 +75,8 @@ body{
 }
 
 .modal{
-    min-width: 30%;
-    min-height: 45%;
+    /*min-width: 30%;
+    min-height: 45%;*/
     max-width: 30%;
     max-height: 60%;
     border-radius: 20px;
@@ -86,3 +112,78 @@ body{
 .chat-historial-container{
     min-height: 75%;
 }
+
+.channels-search-input{
+    all: unset;
+    border: node;
+
+    color: #ffffff;
+    font: NotoSans-Medium;
+
+    height: 48px;
+
+    background: #3C393F;
+    border-radius: 8px;
+}
+
+.channels-search-input:hover{
+    background: #3C393F;
+
+    color: #ffffff;
+    font: NotoSans-Medium;
+}
+
+.channels-search-input:active{
+    background: #3C393F;
+
+    color: #ffffff;
+    font: NotoSans-Medium;
+}
+
+.channels-search-input:focus{
+    background: #3C393F;
+
+    color: #ffffff;
+    font: NotoSans-Medium;
+}
+
+.channels-search-input:disabled{
+    background: #3C393F;
+
+    color: #ffffff;
+    font: NotoSans-Medium;
+}
+
+.channels-search-btn{
+    all: unset;
+    border: node;
+
+    width: 48px;
+    height: 48px;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #3C393F;
+    border-radius: 8px;
+}
+
+.channels-search-btn:hover{
+    background: #3C393F;
+}
+
+.channels-search-btn:active{
+    background: #3C393F;
+}
+
+.channels-search-btn:focus{
+    background: #3C393F;
+}
+
+.channels-search-btn:disabled{
+    background: #3C393F;
+}
+
+
+

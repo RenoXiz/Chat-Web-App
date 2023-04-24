@@ -81,10 +81,25 @@ const getUserByToken = async (token) => {
     }
 }
 
+const deleteToken = async (id) => {
+    const query = ('UPDATE users SET token = NULL WHERE id = $1');
+
+    try {
+        await database.query(query, [id]);
+
+        return true;
+
+    } catch (error) {
+        console.log('Error: ' + error);
+        return false;
+    }
+}
+
 module.exports = {
     createUser,
     createToken,
     getUserById,
     getUserByEmail,
-    getUserByToken
+    getUserByToken,
+    deleteToken
 }
