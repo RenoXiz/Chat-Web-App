@@ -78,7 +78,7 @@ body{
     /*min-width: 30%;
     min-height: 45%;*/
     max-width: 30%;
-    max-height: 60%;
+    max-height: 70%;
     border-radius: 20px;
     background-color: #202020;
     text-align: center;
@@ -185,5 +185,9 @@ body{
     background: #3C393F;
 }
 
+.channel-btn{
+    all: unset;
 
+    background: #120F13;
+}
 

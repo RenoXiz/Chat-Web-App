@@ -223,12 +223,14 @@ $(document).ready(function() {
 
             channels.forEach(channel => {
                 const channelElement = $(`
-                <div class="channel-contianer row m-4" id="${channel.id}">
-                    <button class="channel-btn">
-                        <div class="channel-image col-1">
-                            <img src="${channel.image}" alt="">
+                <div class="channel-contianer w-100 m-4" id="${channel.id}">
+                    <button class="channel-btn w-100 d-flex flex-row">
+                        <div class="channel-image me-4">
+                            <span class="material-symbols-outlined align-middle">
+                                group
+                            </span>
                         </div>
-                        <div class="channel-name col-11">
+                        <div class="channel-name">
                             <h3>${channel.name}</h3>
                         </div>
                     </button>
